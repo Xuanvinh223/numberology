@@ -134,4 +134,26 @@ export const generateBirthChart = (name, day, month, year) => {
     return countDigits(allNumbers.join(''));
 };
 
+export const calculatePinnaclesAndChallenges = (day, month, year) => {
+    // Reduce day, month, year to single digits
+    const reducedDay = reduceToSingleDigit(day);
+    const reducedMonth = reduceToSingleDigit(month);
+    const reducedYear = reduceToSingleDigit(year);
 
+    // Pinnacles
+    const pinnacle1 = reduceToSingleDigit(reducedDay + reducedMonth);
+    const pinnacle2 = reduceToSingleDigit(reducedDay + reducedYear);
+    const pinnacle3 = reduceToSingleDigit(pinnacle1 + pinnacle2);
+    const pinnacle4 = reduceToSingleDigit(reducedMonth + reducedYear);
+
+    // Challenges
+    const challenge1 = Math.abs(reducedDay - reducedMonth);
+    const challenge2 = Math.abs(reducedDay - reducedYear);
+    const challenge3 = Math.abs(challenge1 - challenge2);
+    const challenge4 = Math.abs(reducedMonth - reducedYear);
+
+    return {
+        pinnacles: [pinnacle1, pinnacle2, pinnacle3, pinnacle4],
+        challenges: [challenge1, challenge2, challenge3, challenge4],
+    };
+};

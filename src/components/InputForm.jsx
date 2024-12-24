@@ -9,6 +9,7 @@ import {
     calculatePersonalMonth,
     calculatePersonalDay,
     generateBirthChart,
+    calculatePinnaclesAndChallenges,
 } from '../utils/calculations';
 
 const InputForm = () => {
@@ -18,7 +19,6 @@ const InputForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         // Extract date components
         const [year, month, day] = dob.split('-').map(Number);
 
@@ -42,7 +42,7 @@ const InputForm = () => {
 
         // Generate birth chart
         const birthChart = generateBirthChart(name, day, month, year);
-
+        const { pinnacles, challenges } = calculatePinnaclesAndChallenges(day, month, year);
         setResult({
             lifePath,
             expression,
@@ -53,6 +53,8 @@ const InputForm = () => {
             personalMonth,
             personalDay,
             birthChart,
+            pinnacles,
+            challenges,
         });
     };
 
@@ -96,7 +98,7 @@ const InputForm = () => {
                     <p>Tháng Cá Nhân: {result.personalMonth}</p>
                     <p>Ngày Cá Nhân: {result.personalDay}</p>
                     <h2 className="text-lg font-semibold mt-6">Biểu Đồ Sinh:</h2>
-                    <table className="table-auto border-collapse border border-gray-500">
+                    <table border={1} className="table-auto border-collapse border border-gray-500">
                         <tbody>
                             <tr>
                                 <td className="border px-4 py-2">{result.birthChart['3'] || '-'}</td>
@@ -115,6 +117,26 @@ const InputForm = () => {
                             </tr>
                         </tbody>
                     </table>
+                    <h2 className="text-lg font-semibold mt-6">Kim Tự Tháp:</h2>
+                    <div className="d-flex flex-wrap gap-3">
+                        {result.pinnacles.map((pinnacle, index) => (
+                            <div className="card" style={{ width: "18rem" }} key={index}>
+                                <div className="card-body">
+                                    <h5 className="card-title">Đỉnh {index + 1} : {pinnacle}</h5>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <h2 className="text-lg font-semibold mt-6">Thử Thách Cuộc Đời:</h2>
+                    <div className="d-flex flex-wrap gap-3">
+                        {result.challenges.map((challenge, index) => (
+                            <div className="card" style={{ width: "18rem" }} key={index}>
+                                <div className="card-body">
+                                    <h5 className="card-title">Thử Thách {index + 1} : {challenge}</h5>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             )}
         </div>
