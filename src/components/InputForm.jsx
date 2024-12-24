@@ -12,13 +12,25 @@ import {
     calculatePinnaclesAndChallenges,
 } from '../utils/calculations';
 
+const normalizeName = (str) => {
+    return str
+        .normalize("NFD") // Decompose Unicode
+        .replace(/[\u0300-\u036f]/g, "") // Remove diacritic marks
+        .replace(/đ/g, "d") // Replace 'đ' with 'd'
+        .replace(/Đ/g, "D") // Replace 'Đ' with 'D'
+        .toUpperCase(); // Convert to uppercase
+};
+
 const InputForm = () => {
-    const [name, setName] = useState('');
-    const [dob, setDob] = useState('');
+    const [name, setName] = useState('Phạm Xuân Vinh');
+    const [dob, setDob] = useState('2003-02-02');
     const [result, setResult] = useState(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const fullName = normalizeName(name);
+
         // Extract date components
         const [year, month, day] = dob.split('-').map(Number);
 
@@ -30,9 +42,9 @@ const InputForm = () => {
 
         // Calculate numerology numbers
         const lifePath = calculateLifePathNumber(year, month, day);
-        const expression = calculateExpressionNumber(name);
-        const personality = calculatePersonalityNumber(name);
-        const soulUrge = calculateSoulUrgeNumber(name);
+        const expression = calculateExpressionNumber(fullName);
+        const personality = calculatePersonalityNumber(fullName);
+        const soulUrge = calculateSoulUrgeNumber(fullName);
         const maturity = calculateMaturityNumber(lifePath, expression);
 
         // Personal numbers
@@ -41,7 +53,7 @@ const InputForm = () => {
         const personalDay = calculatePersonalDay(personalMonth, currentDay);
 
         // Generate birth chart
-        const birthChart = generateBirthChart(name, day, month, year);
+        const birthChart = generateBirthChart(fullName, day, month, year);
         const { pinnacles, challenges } = calculatePinnaclesAndChallenges(day, month, year);
         setResult({
             lifePath,
