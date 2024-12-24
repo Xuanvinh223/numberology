@@ -24,8 +24,8 @@ const normalizeName = (str) => {
 };
 
 const InputForm = () => {
-    const [name, setName] = useState('Phạm Xuân Vinh');
-    const [dob, setDob] = useState('2003-02-02');
+    const [name, setName] = useState();
+    const [dob, setDob] = useState();
     const [result, setResult] = useState(null);
 
     const handleSubmit = (e) => {
