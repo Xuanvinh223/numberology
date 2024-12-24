@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/numberology/static/css/main.ca67ef22.css",
-    "main.js": "/numberology/static/js/main.6a73b78e.js",
+    "main.js": "/numberology/static/js/main.88269b3c.js",
     "index.html": "/numberology/index.html",
     "main.ca67ef22.css.map": "/numberology/static/css/main.ca67ef22.css.map",
-    "main.6a73b78e.js.map": "/numberology/static/js/main.6a73b78e.js.map"
+    "main.88269b3c.js.map": "/numberology/static/js/main.88269b3c.js.map"
   },
   "entrypoints": [
     "static/css/main.ca67ef22.css",
-    "static/js/main.6a73b78e.js"
+    "static/js/main.88269b3c.js"
   ]
 }
