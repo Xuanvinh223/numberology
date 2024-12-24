@@ -106,9 +106,9 @@ const InputForm = () => {
                     <p>Số Tính Cách: {result.personality}</p>
                     <p>Số Linh Hồn: {result.soulUrge}</p>
                     <p>Số Trưởng Thành: {result.maturity}</p>
-                    <p>Năm Cá Nhân: {result.personalYear}</p>
-                    <p>Tháng Cá Nhân: {result.personalMonth}</p>
-                    <p>Ngày Cá Nhân: {result.personalDay}</p>
+                    <p>Năm Cá Nhân: {result.personalYear} <span>({new Date().getFullYear()})</span></p>
+                    <p>Tháng Cá Nhân: {result.personalMonth} <span>({new Date().getMonth() + 1})</span></p>
+                    <p>Ngày Cá Nhân: {result.personalDay} <span>({new Date().getDate()})</span></p>
                     <h2 className="text-lg font-semibold mt-6">Biểu Đồ Sinh:</h2>
                     <table border={1} className="table-auto border-collapse border border-gray-500">
                         <tbody>
@@ -129,22 +129,14 @@ const InputForm = () => {
                             </tr>
                         </tbody>
                     </table>
-                    <h2 className="text-lg font-semibold mt-6">Kim Tự Tháp:</h2>
+                    <h2 className="text-lg font-semibold mt-6">Kim Tự Tháp và Thử Thách Cuộc Đời:</h2>
                     <div className="d-flex flex-wrap gap-3">
                         {result.pinnacles.map((pinnacle, index) => (
                             <div className="card" style={{ width: "18rem" }} key={index}>
                                 <div className="card-body">
-                                    <h5 className="card-title">Đỉnh {index + 1} : {pinnacle}</h5>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                    <h2 className="text-lg font-semibold mt-6">Thử Thách Cuộc Đời:</h2>
-                    <div className="d-flex flex-wrap gap-3">
-                        {result.challenges.map((challenge, index) => (
-                            <div className="card" style={{ width: "18rem" }} key={index}>
-                                <div className="card-body">
-                                    <h5 className="card-title">Thử Thách {index + 1} : {challenge}</h5>
+                                    <h5 className="card-title">
+                                        Đỉnh {index + 1}: {pinnacle} ---- Thử Thách {index + 1}: {result.challenges[index]}
+                                    </h5>
                                 </div>
                             </div>
                         ))}
