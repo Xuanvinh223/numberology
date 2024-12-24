@@ -8,6 +8,7 @@ import {
     calculatePersonalYear,
     calculatePersonalMonth,
     calculatePersonalDay,
+    generateBirthChart,
 } from '../utils/calculations';
 
 const InputForm = () => {
@@ -39,6 +40,9 @@ const InputForm = () => {
         const personalMonth = calculatePersonalMonth(personalYear, currentMonth);
         const personalDay = calculatePersonalDay(personalMonth, currentDay);
 
+        // Generate birth chart
+        const birthChart = generateBirthChart(name, day, month, year);
+
         setResult({
             lifePath,
             expression,
@@ -48,9 +52,7 @@ const InputForm = () => {
             personalYear,
             personalMonth,
             personalDay,
-            currentYear,
-            currentMonth,
-            currentDay,
+            birthChart,
         });
     };
 
@@ -90,15 +92,29 @@ const InputForm = () => {
                     <p>Số Tính Cách: {result.personality}</p>
                     <p>Số Linh Hồn: {result.soulUrge}</p>
                     <p>Số Trưởng Thành: {result.maturity}</p>
-                    <p>
-                        Năm Cá Nhân ({result.currentYear}): {result.personalYear}
-                    </p>
-                    <p>
-                        Tháng Cá Nhân ({result.currentMonth}): {result.personalMonth}
-                    </p>
-                    <p>
-                        Ngày Cá Nhân ({result.currentDay}): {result.personalDay}
-                    </p>
+                    <p>Năm Cá Nhân: {result.personalYear}</p>
+                    <p>Tháng Cá Nhân: {result.personalMonth}</p>
+                    <p>Ngày Cá Nhân: {result.personalDay}</p>
+                    <h2 className="text-lg font-semibold mt-6">Biểu Đồ Sinh:</h2>
+                    <table className="table-auto border-collapse border border-gray-500">
+                        <tbody>
+                            <tr>
+                                <td className="border px-4 py-2">{result.birthChart['3'] || '-'}</td>
+                                <td className="border px-4 py-2">{result.birthChart['6'] || '-'}</td>
+                                <td className="border px-4 py-2">{result.birthChart['9'] || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td className="border px-4 py-2">{result.birthChart['2'] || '-'}</td>
+                                <td className="border px-4 py-2">{result.birthChart['5'] || '-'}</td>
+                                <td className="border px-4 py-2">{result.birthChart['8'] || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td className="border px-4 py-2">{result.birthChart['1'] || '-'}</td>
+                                <td className="border px-4 py-2">{result.birthChart['4'] || '-'}</td>
+                                <td className="border px-4 py-2">{result.birthChart['7'] || '-'}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             )}
         </div>

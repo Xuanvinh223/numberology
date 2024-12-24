@@ -89,3 +89,49 @@ export const calculatePersonalDay = (personalMonth, currentDay) => {
     return total > 9 ? total % 9 || 9 : total;
 };
 
+export const generateBirthChart = (name, day, month, year) => {
+    const letterValues = {
+        A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9,
+        J: 1, K: 2, L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9,
+        S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8,
+    };
+
+    // Helper to normalize name (remove diacritics)
+    const normalizeName = (str) => {
+        return str
+            .normalize("NFD") // Decompose Unicode
+            .replace(/[\u0300-\u036f]/g, "") // Remove diacritic marks
+            .replace(/đ/g, "d") // Replace 'đ' with 'd'
+            .replace(/Đ/g, "D") // Replace 'Đ' with 'D'
+            .toUpperCase(); // Convert to uppercase
+    };
+
+    // Helper to count digits
+    const countDigits = (str) => {
+        const counts = { 1: '', 2: '', 3: '', 4: '', 5: '', 6: '', 7: '', 8: '', 9: '' };
+        str.split('').forEach((char) => {
+            if (char in counts) counts[char] += char;
+        });
+        return counts;
+    };
+
+    // Normalize name
+    const normalizedName = normalizeName(name);
+
+    // Combine digits from date of birth
+    const dobNumbers = `${day}${month}${year}`.split('').filter((char) => char >= '1' && char <= '9');
+
+    // Combine digits from name
+    const nameNumbers = normalizedName
+        .replace(/[^A-Z]/g, '') // Remove non-alphabetical characters
+        .split('')
+        .map((char) => letterValues[char])
+        .join('');
+
+    // Combine all numbers and count
+    const allNumbers = [...dobNumbers, ...nameNumbers];
+
+    return countDigits(allNumbers.join(''));
+};
+
+
